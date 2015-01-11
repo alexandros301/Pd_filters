@@ -1,0 +1,77 @@
+#N canvas 92 61 1043 655 10;
+#X obj 56 74 noise~;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array \$0-spectrum 512 float 2;
+#X coords 0 1 512 0 200 140 1;
+#X restore 255 245 graph;
+#X obj 56 434 *~ 0.2;
+#X obj 56 464 dac~;
+#X obj 108 434 spectrum.mmb~ \$0-spectrum;
+#X msg 255 412 logfreq 1 \, dbrange -25 25;
+#X obj 108 409 *~ 39;
+#X obj 255 392 loadbang;
+#X floatatom 107 215 5 0 0 1 bandwidth - -, f 5;
+#X obj 107 234 + 100;
+#X obj 107 256 dbtorms;
+#X floatatom 107 278 5 0 0 0 - - -, f 5;
+#X obj 107 297 pack f 20;
+#X obj 107 319 line~;
+#X obj 84 117 hsl 128 15 0 127 0 0 empty empty frequency -2 -8 0 10
+-262144 -1 -1 0 1;
+#X obj 81 159 pack f 20;
+#X obj 81 181 line~;
+#X obj 42 17 cnv 15 380 40 empty empty empty 20 12 0 14 -204786 -66577
+0;
+#X text 496 13 Arguments: none. I found it a bit to difficult to use
+arguments in case no signal is connected to the respective inlet \,
+so I disabled them altogether. You're more than welcome to hack the
+code and set this feature :);
+#X text 498 81 You can set predifined arguments like this ->;
+#X obj 786 80 loadbang;
+#X obj 786 124 unpack;
+#X msg 786 102 1000 5;
+#X text 497 199 inlets:;
+#X text 509 220 1 (singal)*: signal to be filtered;
+#X text 508 237 2 (signal)*: cut-off frequency;
+#X text 508 310 outlets:;
+#X text 520 274 * Accepts floats too;
+#X text 519 331 1 (signal): the filter's output;
+#X text 508 442 Alexandros Drymonitis July 2014;
+#X text 508 390 Note: the spectrum projection has been copied from
+[filtercoeff.mmb~]'s help patch;
+#X obj 56 341 bandPass~;
+#X obj 761 150 bandPass~;
+#X obj 81 137 mtof;
+#X text 508 255 3 (signal)*: band width;
+#X text 48 22 Band pass filter external: combination of Mike Moser-Booth's [filtercoeff.mmb~]
+and [biquad.mmb~] abstractions;
+#X text 509 491 See also:;
+#X obj 771 491 resonant~;
+#X obj 588 515 lowShelf~;
+#X obj 651 515 peakNotch~;
+#X obj 720 515 highShelf~;
+#X obj 588 491 lowPass~;
+#X obj 646 491 highPass~;
+#X obj 711 491 allPass~;
+#X connect 0 0 31 0;
+#X connect 2 0 3 0;
+#X connect 2 0 3 1;
+#X connect 5 0 4 1;
+#X connect 6 0 4 0;
+#X connect 7 0 5 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 31 2;
+#X connect 14 0 33 0;
+#X connect 15 0 16 0;
+#X connect 16 0 31 1;
+#X connect 20 0 22 0;
+#X connect 21 0 32 1;
+#X connect 21 1 32 2;
+#X connect 22 0 21 0;
+#X connect 31 0 2 0;
+#X connect 31 0 6 0;
+#X connect 33 0 15 0;
