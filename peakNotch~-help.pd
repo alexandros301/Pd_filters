@@ -1,0 +1,85 @@
+#N canvas 0 22 944 604 10;
+#X obj 56 80 noise~;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array \$0-spectrum 512 float 2;
+#X coords 0 1 512 0 200 140 1;
+#X restore 255 245 graph;
+#X obj 56 434 *~ 0.2;
+#X obj 56 464 dac~;
+#X obj 108 434 spectrum.mmb~ \$0-spectrum;
+#X msg 255 412 logfreq 1 \, dbrange -25 25;
+#X obj 108 409 *~ 39;
+#X obj 255 392 loadbang;
+#X floatatom 94 215 5 0 0 1 bandwidth - -, f 5;
+#X obj 94 234 + 100;
+#X obj 94 256 dbtorms;
+#X floatatom 94 278 5 0 0 0 - - -, f 5;
+#X obj 94 297 pack f 20;
+#X obj 94 319 line~;
+#X obj 78 117 hsl 128 15 0 127 0 0 empty empty frequency -2 -8 0 10
+-262144 -1 -1 0 1;
+#X obj 75 159 pack f 20;
+#X obj 75 181 line~;
+#X obj 42 17 cnv 15 380 50 empty empty empty 20 12 0 14 -204786 -66577
+0;
+#X text 516 13 Arguments: none. I found it a bit to difficult to use
+arguments in case no signal is connected to the respective inlet \,
+so I disabled them altogether. You're more than welcome to hack the
+code and set this feature :);
+#X text 518 81 You can set predifined arguments like this ->;
+#X obj 800 80 loadbang;
+#X text 517 199 inlets:;
+#X text 529 220 1 (singal)*: signal to be filtered;
+#X text 528 237 2 (signal)*: cut-off frequency;
+#X text 528 331 outlets:;
+#X text 540 295 * Accepts floats too;
+#X text 539 352 1 (signal): the filter's output;
+#X text 528 463 Alexandros Drymonitis July 2014;
+#X text 528 411 Note: the spectrum projection has been copied from
+[filtercoeff.mmb~]'s help patch;
+#X obj 75 137 mtof;
+#X obj 56 341 peakNotch~;
+#X floatatom 169 283 5 0 0 1 gain - -, f 5;
+#X obj 169 302 pack f 20;
+#X obj 169 324 line~;
+#X text 48 22 Peak/Notch filter external: combination of Mike Moser-Booth's [filtercoeff.mmb~]
+and [biquad.mmb~] abstractions;
+#X text 528 255 3 (signal)*: bandwidth;
+#X text 528 273 4 (signal)*: gain (in dB);
+#X obj 781 150 peakNotch~;
+#X msg 800 102 1000 40 20;
+#X obj 800 124 unpack f f f;
+#X text 527 521 See also:;
+#X obj 664 521 bandPass~;
+#X obj 728 521 highPass~;
+#X obj 606 521 lowPass~;
+#X obj 736 545 highShelf~;
+#X obj 791 521 allPass~;
+#X obj 606 545 resonant~;
+#X obj 671 545 lowShelf~;
+#X connect 0 0 30 0;
+#X connect 2 0 3 0;
+#X connect 2 0 3 1;
+#X connect 5 0 4 1;
+#X connect 6 0 4 0;
+#X connect 7 0 5 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 30 2;
+#X connect 14 0 29 0;
+#X connect 15 0 16 0;
+#X connect 16 0 30 1;
+#X connect 20 0 38 0;
+#X connect 29 0 15 0;
+#X connect 30 0 2 0;
+#X connect 30 0 6 0;
+#X connect 31 0 32 0;
+#X connect 32 0 33 0;
+#X connect 33 0 30 3;
+#X connect 38 0 39 0;
+#X connect 39 0 37 1;
+#X connect 39 1 37 2;
+#X connect 39 2 37 3;
